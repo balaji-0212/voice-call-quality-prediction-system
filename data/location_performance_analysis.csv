@@ -1,0 +1,13 @@
+inout_travelling,operator,Records,Avg_Rating,Call_Drops,Call_Drop_Rate
+Indoor,Airtel,681,4.22,15,2.2
+Indoor,BSNL,27,3.56,3,11.1
+Indoor,RJio,1025,3.06,52,5.1
+Indoor,VI,181,3.49,8,4.4
+Outdoor,Airtel,205,3.98,11,5.4
+Outdoor,BSNL,5,3.6,0,0.0
+Outdoor,RJio,209,2.8,20,9.6
+Outdoor,VI,118,4.19,5,4.2
+Travelling,Airtel,77,4.26,4,5.2
+Travelling,BSNL,11,4.82,0,0.0
+Travelling,RJio,101,3.79,7,6.9
+Travelling,VI,34,3.32,5,14.7

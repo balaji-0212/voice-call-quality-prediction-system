@@ -1,0 +1,4 @@
+network_type,Records,Avg_Rating,Rating_Std,Call_Drops,Call_Drop_Rate
+2G,81,4.136,1.531,4,4.9
+3G,33,3.515,1.121,2,6.1
+4G,1851,3.475,1.515,99,5.3
