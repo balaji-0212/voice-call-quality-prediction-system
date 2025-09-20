@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voice Call Quality Predictor - AI-Powered Telecom Analytics</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="app">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="container">
+                <div class="header-content">
+                    <div class="brand">
+                        <div class="brand-icon">📞</div>
+                        <div class="brand-text">
+                            <h1 class="brand-title">Voice Call Quality Predictor</h1>
+                            <p class="brand-subtitle">AI-Powered Telecom Analytics Platform</p>
+                        </div>
+                    </div>
+                    <div class="header-stats">
+                        <div class="stat-item">
+                            <div class="stat-icon">🎯</div>
+                            <div class="stat-content">
+                                <div class="stat-value">92.8%</div>
+                                <div class="stat-label">Model Accuracy</div>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-icon">⚡</div>
+                            <div class="stat-content">
+                                <div class="stat-value">Live</div>
+                                <div class="stat-label">Predictions</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="app-nav">
+            <div class="container">
+                <div class="nav-tabs">
+                    <button class="nav-tab active" data-tab="predictor">
+                        <span class="nav-icon">🔮</span>
+                        <span>Predictor</span>
+                    </button>
+                    <button class="nav-tab" data-tab="analytics">
+                        <span class="nav-icon">📊</span>
+                        <span>Analytics</span>
+                    </button>
+                    <button class="nav-tab" data-tab="model">
+                        <span class="nav-icon">🤖</span>
+                        <span>Model Info</span>
+                    </button>
+                    <button class="nav-tab" data-tab="api">
+                        <span class="nav-icon">⚙️</span>
+                        <span>API Docs</span>
+                    </button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="app-main">
+            <div class="container">
+                <!-- Predictor Tab -->
+                <div class="tab-content active" id="predictor">
+                    <div class="section-header">
+                        <h2>Call Quality Prediction</h2>
+                        <p class="section-description">Enter call parameters to get AI-powered quality predictions</p>
+                    </div>
+
+                    <div class="prediction-layout">
+                        <!-- Prediction Form -->
+                        <div class="prediction-form">
+                            <form id="predictionForm" class="form-container">
+                                <!-- Operator Selection -->
+                                <div class="form-group">
+                                    <label class="form-label">Telecom Operator</label>
+                                    <select class="form-control" id="operator" required>
+                                        <option value="">Select Operator</option>
+                                        <option value="Airtel">Airtel</option>
+                                        <option value="RJio">Reliance Jio</option>
+                                        <option value="VI">Vodafone Idea</option>
+                                        <option value="BSNL">BSNL</option>
+                                    </select>
+                                </div>
+
+                                <!-- Network Type -->
+                                <div class="form-group">
+                                    <label class="form-label">Network Type</label>
+                                    <div class="radio-group">
+                                        <label class="radio-item">
+                                            <input type="radio" name="network" value="4G" required>
+                                            <span class="radio-custom">
+                                                <span class="radio-icon">📡</span>
+                                                <span class="radio-text">4G</span>
+                                            </span>
+                                        </label>
+                                        <label class="radio-item">
+                                            <input type="radio" name="network" value="3G">
+                                            <span class="radio-custom">
+                                                <span class="radio-icon">📶</span>
+                                                <span class="radio-text">3G</span>
+                                            </span>
+                                        </label>
+                                        <label class="radio-item">
+                                            <input type="radio" name="network" value="2G">
+                                            <span class="radio-custom">
+                                                <span class="radio-icon">📞</span>
+                                                <span class="radio-text">2G</span>
+                                            </span>
+                                        </label>
+                                        <label class="radio-item">
+                                            <input type="radio" name="network" value="Unknown">
+                                            <span class="radio-custom">
+                                                <span class="radio-icon">❓</span>
+                                                <span class="radio-text">Unknown</span>
+                                            </span>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <!-- Location Context -->
+                                <div class="form-group">
+                                    <label class="form-label">Location Context</label>
+                                    <div class="toggle-group">
+                                        <button type="button" class="toggle-btn" data-value="Indoor">
+                                            <span class="toggle-icon">🏠</span>
+                                            <span>Indoor</span>
+                                        </button>
+                                        <button type="button" class="toggle-btn" data-value="Outdoor">
+                                            <span class="toggle-icon">🌳</span>
+                                            <span>Outdoor</span>
+                                        </button>
+                                        <button type="button" class="toggle-btn" data-value="Travelling">
+                                            <span class="toggle-icon">🚗</span>
+                                            <span>Travelling</span>
+                                        </button>
+                                    </div>
+                                    <input type="hidden" id="location" name="location" required>
+                                </div>
+
+                                <!-- Call Quality Category -->
+                                <div class="form-group">
+                                    <label class="form-label">Expected Quality Issues (Optional)</label>
+                                    <div class="quality-cards">
+                                        <label class="quality-card">
+                                            <input type="radio" name="quality" value="Satisfactory">
+                                            <div class="quality-content success">
+                                                <span class="quality-icon">✅</span>
+                                                <span class="quality-text">Satisfactory</span>
+                                            </div>
+                                        </label>
+                                        <label class="quality-card">
+                                            <input type="radio" name="quality" value="Poor Voice Quality">
+                                            <div class="quality-content warning">
+                                                <span class="quality-icon">⚠️</span>
+                                                <span class="quality-text">Poor Voice Quality</span>
+                                            </div>
+                                        </label>
+                                        <label class="quality-card">
+                                            <input type="radio" name="quality" value="Call Dropped">
+                                            <div class="quality-content error">
+                                                <span class="quality-icon">📵</span>
+                                                <span class="quality-text">Call Dropped</span>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <!-- State Selection -->
+                                <div class="form-group">
+                                    <label class="form-label">State</label>
+                                    <select class="form-control" id="state" required>
+                                        <option value="">Select State</option>
+                                        <option value="Karnataka">Karnataka</option>
+                                        <option value="Maharashtra">Maharashtra</option>
+                                        <option value="Uttarakhand">Uttarakhand</option>
+                                        <option value="Kerala">Kerala</option>
+                                        <option value="Rajasthan">Rajasthan</option>
+                                        <option value="Bihar">Bihar</option>
+                                        <option value="West Bengal">West Bengal</option>
+                                        <option value="Madhya Pradesh">Madhya Pradesh</option>
+                                        <option value="Uttar Pradesh">Uttar Pradesh</option>
+                                        <option value="Jharkhand">Jharkhand</option>
+                                        <option value="Tamil Nadu">Tamil Nadu</option>
+                                        <option value="Andhra Pradesh">Andhra Pradesh</option>
+                                        <option value="Telangana">Telangana</option>
+                                        <option value="Gujarat">Gujarat</option>
+                                        <option value="Punjab">Punjab</option>
+                                        <option value="Haryana">Haryana</option>
+                                        <option value="Delhi">Delhi</option>
+                                        <option value="Himachal Pradesh">Himachal Pradesh</option>
+                                        <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+                                        <option value="Odisha">Odisha</option>
+                                    </select>
+                                </div>
+
+                                <!-- Coordinates -->
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label class="form-label">Latitude</label>
+                                        <input type="number" class="form-control" id="latitude" 
+                                               step="0.000001" min="-90" max="90" placeholder="e.g., 12.9716">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Longitude</label>
+                                        <input type="number" class="form-control" id="longitude" 
+                                               step="0.000001" min="-180" max="180" placeholder="e.g., 77.5946">
+                                    </div>
+                                </div>
+
+                                <!-- Month Selection -->
+                                <div class="form-group">
+                                    <label class="form-label">Month</label>
+                                    <select class="form-control" id="month" required>
+                                        <option value="">Select Month</option>
+                                        <option value="January">January</option>
+                                        <option value="February">February</option>
+                                        <option value="March">March</option>
+                                        <option value="April">April</option>
+                                        <option value="May">May</option>
+                                        <option value="June">June</option>
+                                        <option value="July">July</option>
+                                        <option value="August">August</option>
+                                        <option value="September" selected>September</option>
+                                        <option value="October">October</option>
+                                        <option value="November">November</option>
+                                        <option value="December">December</option>
+                                    </select>
+                                </div>
+
+                                <!-- Predict Button -->
+                                <button type="submit" class="btn btn--primary btn--full-width predict-btn" id="predictBtn">
+                                    <span class="btn-text">Predict Call Quality</span>
+                                    <span class="btn-spinner hidden">🔄</span>
+                                </button>
+                            </form>
+                        </div>
+
+                        <!-- Prediction Results -->
+                        <div class="prediction-results">
+                            <div class="results-card" id="resultsCard">
+                                <div class="results-header">
+                                    <h3>Prediction Results</h3>
+                                    <div class="results-status" id="resultsStatus">
+                                        <span class="status-text">Ready to predict</span>
+                                    </div>
+                                </div>
+
+                                <div class="results-content" id="resultsContent">
+                                    <div class="results-placeholder">
+                                        <div class="placeholder-icon">🎯</div>
+                                        <p>Fill out the form and click "Predict Call Quality" to get AI-powered predictions</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Recent Predictions -->
+                            <div class="recent-predictions">
+                                <h3>Recent Predictions</h3>
+                                <div class="predictions-list" id="predictionsList">
+                                    <!-- Recent predictions will be populated here -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Analytics Tab -->
+                <div class="tab-content" id="analytics">
+                    <div class="section-header">
+                        <h2>Analytics Dashboard</h2>
+                        <p class="section-description">Insights and patterns from prediction data</p>
+                    </div>
+
+                    <!-- Key Metrics -->
+                    <div class="metrics-grid">
+                        <div class="metric-card">
+                            <div class="metric-icon">🎯</div>
+                            <div class="metric-content">
+                                <div class="metric-value" id="totalPredictions">1,247</div>
+                                <div class="metric-label">Total Predictions</div>
+                            </div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-icon">⭐</div>
+                            <div class="metric-content">
+                                <div class="metric-value" id="avgRating">3.8</div>
+                                <div class="metric-label">Average Rating</div>
+                            </div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-icon">📉</div>
+                            <div class="metric-content">
+                                <div class="metric-value" id="dropRate">4.2%</div>
+                                <div class="metric-label">Predicted Drop Rate</div>
+                            </div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-icon">🏆</div>
+                            <div class="metric-content">
+                                <div class="metric-value" id="topOperator">Airtel</div>
+                                <div class="metric-label">Best Performer</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Charts -->
+                    <div class="charts-grid">
+                        <div class="chart-card">
+                            <h3>Operator Performance</h3>
+                            <div class="chart-container" style="height: 300px; position: relative;">
+                                <canvas id="operatorChart"></canvas>
+                            </div>
+                        </div>
+                        <div class="chart-card">
+                            <h3>Network Impact</h3>
+                            <div class="chart-container" style="height: 300px; position: relative;">
+                                <canvas id="networkChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Model Info Tab -->
+                <div class="tab-content" id="model">
+                    <div class="section-header">
+                        <h2>Model Information</h2>
+                        <p class="section-description">Technical details and performance metrics</p>
+                    </div>
+
+                    <div class="model-grid">
+                        <div class="model-card">
+                            <h3>Performance Metrics</h3>
+                            <div class="metrics-list">
+                                <div class="metric-row">
+                                    <span class="metric-name">Accuracy</span>
+                                    <span class="metric-value">92.8%</span>
+                                </div>
+                                <div class="metric-row">
+                                    <span class="metric-name">RMSE</span>
+                                    <span class="metric-value">0.40</span>
+                                </div>
+                                <div class="metric-row">
+                                    <span class="metric-name">MAE</span>
+                                    <span class="metric-value">0.22</span>
+                                </div>
+                                <div class="metric-row">
+                                    <span class="metric-name">Features</span>
+                                    <span class="metric-value">27</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="model-card">
+                            <h3>Model Details</h3>
+                            <div class="model-info">
+                                <p><strong>Algorithm:</strong> Random Forest Regressor</p>
+                                <p><strong>Training Data:</strong> 2,674 call records</p>
+                                <p><strong>States Covered:</strong> 20 Indian states</p>
+                                <p><strong>Last Updated:</strong> September 2024</p>
+                                <p><strong>Confidence Interval:</strong> 95%</p>
+                            </div>
+                        </div>
+
+                        <div class="model-card full-width">
+                            <h3>Feature Importance</h3>
+                            <div class="feature-list">
+                                <div class="feature-item">
+                                    <span class="feature-name">Call Quality Category</span>
+                                    <div class="feature-bar">
+                                        <div class="feature-fill" style="width: 85%"></div>
+                                    </div>
+                                    <span class="feature-score">0.85</span>
+                                </div>
+                                <div class="feature-item">
+                                    <span class="feature-name">Operator</span>
+                                    <div class="feature-bar">
+                                        <div class="feature-fill" style="width: 72%"></div>
+                                    </div>
+                                    <span class="feature-score">0.72</span>
+                                </div>
+                                <div class="feature-item">
+                                    <span class="feature-name">Network Type</span>
+                                    <div class="feature-bar">
+                                        <div class="feature-fill" style="width: 58%"></div>
+                                    </div>
+                                    <span class="feature-score">0.58</span>
+                                </div>
+                                <div class="feature-item">
+                                    <span class="feature-name">Location</span>
+                                    <div class="feature-bar">
+                                        <div class="feature-fill" style="width: 41%"></div>
+                                    </div>
+                                    <span class="feature-score">0.41</span>
+                                </div>
+                                <div class="feature-item">
+                                    <span class="feature-name">Geographic Coordinates</span>
+                                    <div class="feature-bar">
+                                        <div class="feature-fill" style="width: 23%"></div>
+                                    </div>
+                                    <span class="feature-score">0.23</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- API Docs Tab -->
+                <div class="tab-content" id="api">
+                    <div class="section-header">
+                        <h2>API Documentation</h2>
+                        <p class="section-description">Integration guide for developers</p>
+                    </div>
+
+                    <div class="api-grid">
+                        <div class="api-card">
+                            <h3>Prediction Endpoint</h3>
+                            <div class="code-block">
+                                <code>POST /api/v1/predict</code>
+                            </div>
+                            <p>Submit call parameters to get quality predictions.</p>
+                            <div class="api-example">
+                                <strong>Request Body:</strong>
+                                <pre>{
+  "operator": "Airtel",
+  "network_type": "4G",
+  "location": "Indoor",
+  "state": "Karnataka",
+  "latitude": 12.9716,
+  "longitude": 77.5946,
+  "month": "September"
+}</pre>
+                            </div>
+                        </div>
+
+                        <div class="api-card">
+                            <h3>Response Format</h3>
+                            <div class="api-example">
+                                <strong>Success Response:</strong>
+                                <pre>{
+  "prediction": {
+    "rating": 4.2,
+    "confidence": 0.87,
+    "quality_score": "Good",
+    "drop_probability": 0.03
+  },
+  "model_version": "v2.1",
+  "timestamp": "2024-09-20T11:00:00Z"
+}</pre>
+                            </div>
+                        </div>
+
+                        <div class="api-card full-width">
+                            <h3>Authentication & Rate Limits</h3>
+                            <div class="api-info">
+                                <p><strong>Authentication:</strong> API Key required in header</p>
+                                <p><strong>Rate Limit:</strong> 100 requests per minute</p>
+                                <p><strong>Base URL:</strong> https://api.callqualitypredictor.com</p>
+                                <p><strong>Content-Type:</strong> application/json</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

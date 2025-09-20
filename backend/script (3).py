@@ -1,4 +1,5 @@
-
+# Create FastAPI Backend Code
+fastapi_code = '''
 """
 Voice Call Quality Prediction API
 FastAPI backend for real-time call quality predictions
@@ -97,19 +98,19 @@ month_mapping = {
 def create_feature_vector(request: PredictionRequest) -> np.ndarray:
     """Create feature vector from prediction request"""
     features = {col: 0 for col in feature_columns}
-
+    
     # Basic features
     features['latitude'] = request.latitude
     features['longitude'] = request.longitude
     features['month_num'] = month_mapping.get(request.month, 1)
     features['quarter'] = ((features['month_num'] - 1) // 3) + 1
-
+    
     # Call quality features
     if request.calldrop_category == 'Call Dropped':
         features['is_call_dropped'] = 1
     elif request.calldrop_category == 'Poor Voice Quality':
         features['is_poor_quality'] = 1
-
+    
     # Location features
     if request.inout_travelling == 'Indoor':
         features['is_indoor'] = 1
@@ -117,7 +118,7 @@ def create_feature_vector(request: PredictionRequest) -> np.ndarray:
         features['is_outdoor'] = 1
     elif request.inout_travelling == 'Travelling':
         features['is_travelling'] = 1
-
+    
     # Network features
     if request.network_type == '4G':
         features['is_4g'] = 1
@@ -127,7 +128,7 @@ def create_feature_vector(request: PredictionRequest) -> np.ndarray:
         features['is_2g'] = 1
     else:
         features['is_unknown_network'] = 1
-
+    
     # Operator features
     if request.operator == 'Airtel':
         features['is_airtel'] = 1
@@ -137,12 +138,12 @@ def create_feature_vector(request: PredictionRequest) -> np.ndarray:
         features['is_vi'] = 1
     elif request.operator == 'BSNL':
         features['is_bsnl'] = 1
-
+    
     # State features
     state_col = f'is_{request.state_name.lower().replace(" ", "_")}'
     if state_col in features:
         features[state_col] = 1
-
+    
     return np.array([list(features.values())])
 
 @app.get("/", response_model=dict)
@@ -173,7 +174,7 @@ async def get_model_info():
     """Get model information and performance metrics"""
     if model is None:
         raise HTTPException(status_code=503, detail="Model not loaded")
-
+    
     return ModelInfoResponse(
         model_name=model_data['model_name'],
         accuracy=round(performance_metrics['r2_score'], 4),
@@ -186,20 +187,20 @@ async def get_model_info():
 @app.post("/predict", response_model=PredictionResponse)
 async def predict_call_quality(request: PredictionRequest):
     """Predict call quality rating based on input parameters"""
-
+    
     if model is None:
         raise HTTPException(status_code=503, detail="Model not loaded")
-
+    
     try:
         # Create feature vector
         feature_vector = create_feature_vector(request)
-
+        
         # Make prediction
         prediction = model.predict(feature_vector)[0]
-
+        
         # Ensure prediction is within valid range
         prediction = max(1.0, min(5.0, prediction))
-
+        
         # Create response
         response = PredictionResponse(
             predicted_rating=round(prediction, 2),
@@ -219,10 +220,10 @@ async def predict_call_quality(request: PredictionRequest):
             },
             timestamp=datetime.now().isoformat()
         )
-
+        
         logger.info(f"Prediction made: {prediction:.2f} for {request.operator} in {request.state_name}")
         return response
-
+        
     except Exception as e:
         logger.error(f"Prediction error: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Prediction failed: {str(e)}")
@@ -254,3 +255,54 @@ if __name__ == "__main__":
         reload=True,
         log_level="info"
     )
+'''
+
+# Save FastAPI code
+with open('fastapi_backend.py', 'w') as f:
+    f.write(fastapi_code)
+
+print("✅ FastAPI backend code created: 'fastapi_backend.py'")
+
+# Create requirements.txt for backend
+requirements = '''fastapi==0.104.1
+uvicorn[standard]==0.24.0
+pydantic==2.5.0
+scikit-learn==1.3.2
+pandas==2.1.4
+numpy==1.24.3
+python-multipart==0.0.6
+'''
+
+with open('requirements.txt', 'w') as f:
+    f.write(requirements)
+
+print("✅ Requirements file created: 'requirements.txt'")
+
+# Create Docker configuration
+dockerfile = '''FROM python:3.11-slim
+
+WORKDIR /app
+
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY . .
+
+EXPOSE 8000
+
+CMD ["uvicorn", "fastapi_backend:app", "--host", "0.0.0.0", "--port", "8000"]
+'''
+
+with open('Dockerfile', 'w') as f:
+    f.write(dockerfile)
+
+print("✅ Dockerfile created for containerization")
+
+print("\n🚀 BACKEND DEPLOYMENT INSTRUCTIONS:")
+print("=" * 40)
+print("1. Install dependencies: pip install -r requirements.txt")
+print("2. Run server: python fastapi_backend.py")
+print("3. Access API docs: http://localhost:8000/docs")
+print("4. Test predictions: http://localhost:8000/predict")
+print("5. Docker build: docker build -t voice-call-api .")
+print("6. Docker run: docker run -p 8000:8000 voice-call-api")

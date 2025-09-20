@@ -1,0 +1,72 @@
+{
+  "prediction_endpoint": "/predict",
+  "input_parameters": {
+    "operator": [
+      "Airtel",
+      "RJio",
+      "VI",
+      "BSNL"
+    ],
+    "network_type": [
+      "4G",
+      "3G",
+      "2G",
+      "Unknown"
+    ],
+    "inout_travelling": [
+      "Indoor",
+      "Outdoor",
+      "Travelling"
+    ],
+    "calldrop_category": [
+      "Satisfactory",
+      "Poor Voice Quality",
+      "Call Dropped"
+    ],
+    "latitude": "float (-90 to 90)",
+    "longitude": "float (-180 to 180)",
+    "state_name": [
+      "Tamil Nadu",
+      "Uttarakhand",
+      "Karnataka",
+      "Maharashtra",
+      "Uttar Pradesh",
+      "Telangana",
+      "Jharkhand",
+      "West Bengal",
+      "Andhra Pradesh",
+      "Rajasthan",
+      "Kerala",
+      "Goa",
+      "Chhattisgarh",
+      "Gujarat",
+      "Odisha",
+      "Unnamed: 7",
+      "Madhya Pradesh",
+      "Haryana",
+      "Delhi",
+      "Kashmir",
+      "Punjab",
+      "Chandigarh",
+      "NCT",
+      "Bihar"
+    ],
+    "month": [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October"
+    ]
+  },
+  "output": {
+    "predicted_rating": "float (1.0 to 5.0)",
+    "confidence_interval": "\u00b10.22 rating points",
+    "model_accuracy": "92.8%"
+  }
+}
